@@ -122,3 +122,11 @@ Em "Advanced Settings", último item do menu lateral esquerdo, vamos marcar a op
 developed application is currently running", que é a segunda opção da lista. Feito isso, podemos aplicar e clicar em "
 OK".
 
+## O que seria um DTO?
+
+DTO é a sigla para Data Transfer Object, que é um padrão de projeto utilizado para transferir dados entre diferentes
+camadas de uma aplicação. O DTO é uma classe simples que contém apenas os atributos necessários para a transferência de
+dados, sem lógica de negócio. Ele é utilizado para evitar o vazamento de informações sensíveis e para otimizar o
+desempenho da aplicação, já que reduz a quantidade de dados transferidos. No contexto do exercício, o SerieDTO é
+utilizado para retornar os detalhes de uma série específica no endpoint do controlador.
+
