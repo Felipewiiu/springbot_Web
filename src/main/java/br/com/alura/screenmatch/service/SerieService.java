@@ -1,6 +1,7 @@
 package br.com.alura.screenmatch.service;
 
 import br.com.alura.screenmatch.dto.SerieDTO;
+import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,14 +10,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Service // informa ao spring que essa classe é uma classe de serviço
+// informa ao spring que essa classe é uma classe de serviço
+// Em classe de serciço fica a lógica do negócio
+
+@Service
 public class SerieService {
     @Autowired // injeção de dependência
     private SerieRepository repositorio;
 
     public List<SerieDTO> obterTodasAsSeries (){
-        return repositorio.findAll()
-                .stream()
+        return converteDados(repositorio.findAll());
+
+    }
+
+    public List<SerieDTO> obterTop5Series() {
+        return converteDados(repositorio.findTop5ByOrderByAvaliacaoDesc());
+
+    }
+
+    private List<SerieDTO> converteDados(List<Serie> series){
+        return series.stream()
                 .map(s -> new SerieDTO(
                         s.getId(),
                         s.getTitulo(),
@@ -29,4 +42,7 @@ public class SerieService {
                 .collect(Collectors.toList());
     }
 
+    public List<SerieDTO> obterLancamento() {
+        return converteDados(repositorio.findTop5ByOrderByAvaliacaoDesc());
+    }
 }
