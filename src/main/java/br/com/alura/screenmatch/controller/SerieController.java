@@ -1,6 +1,8 @@
 package br.com.alura.screenmatch.controller;
 
+import br.com.alura.screenmatch.dto.EpisodioDTO;
 import br.com.alura.screenmatch.dto.SerieDTO;
+import br.com.alura.screenmatch.model.Serie;
 import br.com.alura.screenmatch.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,7 @@ import java.util.List;
 public class SerieController {
     @Autowired SerieService servico; // injeção de dependência
 
-    @GetMapping
+    @GetMapping// indica o início da URL
     public List<SerieDTO> obterSeries() {
         return servico.obterTodasAsSeries();
     }
@@ -33,6 +35,21 @@ public class SerieController {
     @GetMapping("/{id}")// uma parâmetro de uma URL é passado por chaves
     public SerieDTO obterSerie(@PathVariable Long id){
         return servico.obterPorId(id);
+    }
+
+    @GetMapping("/{id}/temporadas/todas")
+    public List<EpisodioDTO> obterTodasAsTemporadas(@PathVariable Long id){
+        return servico.obterTodasAsTemporadas(id);
+    }
+
+    @GetMapping("/{id}/temporadas/{numero}")
+    public List<EpisodioDTO> obterTemporadasPorNumero(@PathVariable Long id, @PathVariable Long numero){
+        return servico.obterTemporadasPorNumero(id, numero);
+    }
+
+    @GetMapping("/categoria/{nomeGenero}")
+    public List<SerieDTO> obterSeriesPorCategoria(@PathVariable String nomeGenero){
+        return servico.obterSeriePorCategoria(nomeGenero);
     }
 
 
